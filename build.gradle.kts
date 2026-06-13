@@ -16,6 +16,9 @@ dependencies {
     //COFEELIB - Lib pessoal para desenvolvimento de plugins. AKA Config system
     compileOnly("com.github.RenanPlay13013:CoffeeLib:master-SNAPSHOT")
 
+    //MiniGame Core
+    compileOnly("com.github.Wueffi:MiniGameCore:master-SNAPSHOT")
+
     //LOMBOK
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")

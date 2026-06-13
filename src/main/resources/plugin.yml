@@ -11,6 +11,7 @@ authors: [ Café ]
 
 depend:
   - coffeelib
+  - MiniGameCore
 
 commands:
   join:

@@ -1,58 +1,29 @@
 package net.loyalnetwork.survive;
 
-import net.loyalnetwork.survive.arena.ArenaManager;
-import net.loyalnetwork.survive.arena.SimpleArenaManager;
-import net.loyalnetwork.survive.match.MatchManager;
-import net.loyalnetwork.survive.match.MatchTickTask;
-import net.loyalnetwork.survive.match.Matchmaker;
-import net.loyalnetwork.survive.match.SimpleMatchManager;
-import net.loyalnetwork.survive.queue.Queue;
+import lombok.Getter;
+import net.loyalnetwork.survive.listener.DeathListener;
+import net.loyalnetwork.survive.listener.GameListener;
+import net.loyalnetwork.survive.listener.QuitListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Survive extends JavaPlugin {
+public class Survive extends JavaPlugin {
 
-    private MatchManager matchManager;
-    private ArenaManager arenaManager;
-    private Queue queue;
-
-    private MatchTickTask matchTickTask;
-    private Matchmaker matchmaker;
+    @Getter
+    private static Survive instance;
 
     @Override
     public void onEnable() {
+        instance = this;
 
-        loadManagers();
-        loadConfig();
-        startSystems();
-        registerCommands();
-        registerListeners();
+        getServer().getPluginManager().registerEvents(new GameListener(), this);
+        getServer().getPluginManager().registerEvents(new DeathListener(), this);
+        getServer().getPluginManager().registerEvents(new QuitListener(), this);
+
+        getLogger().info("Survive habilitado!");
     }
 
     @Override
     public void onDisable() {
-        // cleanup futuramente
+        getLogger().info("Survive desabilitado!");
     }
-    private void loadManagers() {
-        this.matchManager = new SimpleMatchManager();
-        this.arenaManager = new SimpleArenaManager(); // vamos criar
-        this.queue = new Queue();
-    }
-
-    private void loadConfig() {
-        saveDefaultConfig();
-
-        ArenaConfigLoader loader = new ArenaConfigLoader(this, arenaManager);
-        loader.load();
-    }
-
-    private void startSystems() {
-
-        this.matchTickTask = new MatchTickTask(matchManager);
-        matchTickTask.runTaskTimer(this, 0L, 20L);
-
-        this.matchmaker = new Matchmaker(queue, matchManager, arenaManager);
-        matchmaker.runTaskTimer(this, 0L, 20L);
-    }
-
-
 }
