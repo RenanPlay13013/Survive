@@ -1,0 +1,24 @@
+name: Survive
+description: $description
+prefix: Survive
+version: '${version}'
+
+main: net.loyalnetwork.survive.Survive
+api-version: '1.21.11'
+load: POSTWORLD
+
+authors: [ Café ]
+
+depend:
+  - coffeelib
+
+commands:
+  join:
+    description: Entra na fila da partida
+    usage: /join
+    permission: survive.join
+
+permissions:
+  survive.join:
+    description: "Join game permission"
+    default: not op
