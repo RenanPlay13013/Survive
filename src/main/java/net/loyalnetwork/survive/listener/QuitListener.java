@@ -5,11 +5,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 import wueffi.MiniGameCore.api.MiniGameCoreAPI;
+import wueffi.MiniGameCore.managers.GameManager;
 import wueffi.MiniGameCore.managers.LobbyManager;
 import wueffi.MiniGameCore.utils.Lobby;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.Collection;
 
 public class QuitListener implements Listener {
 
@@ -19,13 +19,12 @@ public class QuitListener implements Listener {
 
         Lobby lobby = LobbyManager.getLobbyByPlayer(player);
         if (lobby == null) return;
-
         if (!lobby.getGameName().equalsIgnoreCase("Survive")) return;
 
         MiniGameCoreAPI.playerDeath(player.getUniqueId());
 
-        Set<Player> alivePlayers = lobby.getPlayers();
-        alivePlayers.removeIf(p -> p.getUniqueId().equals(player.getUniqueId()));
+        Collection<Player> alivePlayers = GameManager.getAlivePlayersByLobby(lobby);
+        if (alivePlayers == null) return;
 
         if (alivePlayers.size() == 1) {
             Player winner = alivePlayers.iterator().next();

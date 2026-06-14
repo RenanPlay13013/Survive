@@ -23,8 +23,7 @@ public class GameListener implements Listener {
 
         for (Player player : lobby.getPlayers()) {
             player.sendMessage(Component.text(
-                    "A partida começou! Seja o último sobrevivente!",
-                    NamedTextColor.GREEN
+                    "&aA partida começou! Seja o último sobrevivente!"
             ));
         }
     }
@@ -34,8 +33,7 @@ public class GameListener implements Listener {
         Lobby lobby = event.getLobby();
 
         Bukkit.broadcast(Component.text(
-                "[Survive] Partida " + lobby.getLobbyId() + " encerrada!",
-                NamedTextColor.GOLD
+                "&6[Survive] Partida " + lobby.getLobbyId() + " encerrada!"
         ));
     }
 }

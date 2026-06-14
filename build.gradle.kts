@@ -22,6 +22,12 @@ dependencies {
     //LOMBOK
     compileOnly("org.projectlombok:lombok:1.18.46")
     annotationProcessor("org.projectlombok:lombok:1.18.46")
+
+    //Hibernate ORM
+    implementation("org.hibernate.orm:hibernate-core:6.6.4.Final")
+
+    //PostgreSQL driver
+    implementation("org.postgresql:postgresql:42.7.4")
 }
 
 java {
